@@ -21,24 +21,99 @@ export default function Home() {
             id: locationMarket.length +1
         } 
         setLocationMarket([...locationMarket,newLocations])//get new location data and set add it to collection
-
+        // createTable()
     }
     function resultTable(){
         if (locationMarket.length == 0 ){
             return(
-                'No Cookies Stands Available'
+                <p>No Cookies Stands Available</p>
             );
         }
         else{
-            return JSON.stringify(locationMarket)
+            return  createTable()
         }
-        
     }
-    function createRows(locationName){
-        return(
-                locationName.hourlyCustomers.map(item=>{
-                    <td>{item}</td>
-                })
+    function hourlyTotalCal(){
+        let totalAllHours=0;
+        let hourlyTotal=[]
+        for (let i=0;i<openHours.length;i++){
+            let sumHour=0;
+            locationMarket.map(element=>{
+                sumHour+=element.hourlyCustomers[i]
+            })
+            hourlyTotal[i]=sumHour
+        }
+        totalAllHours=hourlyTotal.reduce((accumulator, currentValue) => accumulator + currentValue)
+        hourlyTotal[openHours.length]=totalAllHours
+        return(hourlyTotal)
+    }
+    function createTable(){
+        return (
+            <table className='border-2 border-black'>
+                <thead>
+                    <tr className='border-2 border-black'>
+                        <td className='border-2 border-black'>
+                            Location
+                        </td>
+                        {/* flixable opening hours */}
+                        {openHours.map(oneHour=>{
+                            return(
+                                <td className='border-2 border-black'>
+                                    {oneHour}
+                                </td>
+                            );
+                        })}
+                        
+                        <td className='border-2 border-black'>
+                            Totals
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                {locationMarket.map(oneMarket=>{
+                            return(
+                                <tr className='border-2 border-black'>
+                                    <td>
+                                        {oneMarket.locationInput}
+                                    </td>
+                                    {
+                                        oneMarket.hourlyCustomers.map(hourCus=>{
+                                            return(
+                                                <td className='border-2 border-black'>
+                                                    {hourCus}
+                                                </td>
+                                            );
+                                        })
+                                    }
+                                    <td>
+                                        {
+                                            oneMarket.hourlyCustomers.reduce((accumulator, currentValue) => accumulator + currentValue)
+                                        }
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                </tbody>
+                <tfoot>
+                    <tr className='border-2 border-black'>
+                    <td className='border-2 border-black'>
+                        Totals
+                    </td>
+                    {hourlyTotalCal().map(element=>{
+                        return(
+                        <td className='border-2 border-black'>
+                            {element}
+                        </td>
+
+                        )
+                    }
+                    )
+                    }
+                    </tr>
+                </tfoot>
+                
+            </table>
+
         );
     }
     return (
@@ -54,65 +129,10 @@ export default function Home() {
                 <CreateForm cookiesFormHandler={cookiesFormHandler}/>
                 {/* ReportTable component */}
                 {/* <ReportTable resultTable={resultTable}/> */}
-                        <p className='w-4/5 grid-flow-col p-2 text-center bg-blue-300 rounded-lg h-3/5' >
-                        <p className='text-xl'>
-                            <table className='border border-blue-600'>
-                                <thead>
-                                    <tr>
-                                        <th>Location</th>
-                                    {/* add th tag from locations */}
-                                        {openHours.map(item=>{
-                                            return(
-                                                <td>{item}</td>
-                                            )
-                                        })}
-                                        <th>Totals</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                        {locationMarket.map(oneMarket=>{
-                                            return(
-                                                <tr>
-                                                    <td>
-                                                    {oneMarket.locationInput}
-                                                    </td>
-                                                {oneMarket.hourlyCustomers.map(oneHour=>{
-                                                    return(
-                                                        
-                                                    <td>
-                                                        {oneHour}
-                                                    </td>
-                                                        );    
-                                            })}
-
-                                                {
-                                                oneMarket.hourlyCustomers.map(numbCus =>{
-                                                        return <td>{numbCus}</td>
-                                                })
-                                                }
-                                                </tr>
-                                            );
-                                        })}
-                                </tbody>
-                                
-                                <thead>
-                                    <tr>
-                                            <th>Totals</th>
-                                            {openHours.map(item=>{
-                                                return(
-                                                    <td>sum    
-                                                    </td>
-                                                )
-                                            })}
-
-                                            <th>Totals</th>
-                                    </tr>
-                                </thead>
-
-                            </table>
-                            {/* {resultTable()} */}
-                        </p>
-                        </p>
+                        <div className='w-4/5 grid-flow-col p-2 text-center bg-blue-400 rounded-lg h-3/5' >
+                            {resultTable()}
+                            
+                        </div>
             </main>
             <Footer totalMarkets={locationMarket.length}/>
         </body>
