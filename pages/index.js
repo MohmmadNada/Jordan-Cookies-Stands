@@ -3,7 +3,6 @@ import { useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Head2 from '../components/Head2'
-import ReportTable from '../components/ReportTable'
 import CookiesSandAdmin from '../components/CookieStandAdmin'
 export default function Home() {
     const [locationMarket,setLocationMarket]=useState([])
@@ -25,12 +24,7 @@ export default function Home() {
         <Head2/>
         <body className="">
             <Header herfOverview={'/overview'}/>
-                <CookiesSandAdmin cookiesFormHandler={cookiesFormHandler} locationMarket={locationMarket} openHours={openHours}/>
-            {/* <main className = "grid flex-grow h-screen p-10 bg-gray-500 justify-items-center">
-                <CookiesSandAdmin cookiesFormHandler={cookiesFormHandler} />
-                <ReportTable locationMarket={locationMarket} openHours={openHours}/>
-            </main> */}
+            <CookiesSandAdmin cookiesFormHandler={cookiesFormHandler} locationMarket={locationMarket} openHours={openHours}/>
             <Footer totalMarkets={locationMarket.length}/>
         </body>
-        
     </div>)}
