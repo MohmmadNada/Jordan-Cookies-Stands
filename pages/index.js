@@ -1,8 +1,4 @@
-import Head from 'next/head'
 import { useState } from 'react'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-import Head2 from '../components/Head2'
 import CookiesSandAdmin from '../components/CookieStandAdmin'
 export default function Home() {
     const [locationMarket,setLocationMarket]=useState([])
@@ -20,11 +16,6 @@ export default function Home() {
         setLocationMarket([...locationMarket,newLocations])
     }
     return (
-    <div className = "">
-        <Head2/>
-        <body className="">
-            <Header herfOverview={'/overview'}/>
-            <CookiesSandAdmin cookiesFormHandler={cookiesFormHandler} locationMarket={locationMarket} openHours={openHours}/>
-            <Footer totalMarkets={locationMarket.length}/>
-        </body>
-    </div>)}
+        <CookiesSandAdmin cookiesFormHandler={cookiesFormHandler} locationMarket={locationMarket} openHours={openHours}/>
+    )
+    }
