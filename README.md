@@ -48,3 +48,8 @@ Refer to [Lab Submission Instructions](https://codefellows.github.io/code-401-py
 * Add a list of Cookie Stand locations to Overview page.
     * There is some trickiness here regarding logged in status. Try to figure it out!
 * Add edit feature.
+
+
+# STEPS : 
+1. let`s add data file 
+   1. add data.js in top level 

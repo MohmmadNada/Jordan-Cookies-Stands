@@ -1,8 +1,9 @@
+import openHours from "../data";
 export default function ReportTable(prpos){
     function hourlyTotalCal(){
         let totalAllHours=0;
         let hourlyTotal=[]
-        for (let i=0;i<prpos.openHours.length;i++){
+        for (let i=0;i<openHours.length;i++){
             let sumHour=0;
             prpos.locationMarket.map(element=>{
                 sumHour+=element.hourlyCustomers[i]
@@ -10,7 +11,7 @@ export default function ReportTable(prpos){
             hourlyTotal[i]=sumHour
         }
         totalAllHours=hourlyTotal.reduce((accumulator, currentValue) => accumulator + currentValue)
-        hourlyTotal[prpos.openHours.length]=totalAllHours
+        hourlyTotal[openHours.length]=totalAllHours
         return(hourlyTotal)
     }
     function createTable(){
@@ -22,7 +23,7 @@ export default function ReportTable(prpos){
                             Location
                         </td>
                         {/* flixable opening hours */}
-                        {prpos.openHours.map(oneHour=>{
+                        {openHours.map(oneHour=>{
                             return(
                                 <td className='border-2 border-black'>
                                     {oneHour}
