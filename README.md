@@ -10,7 +10,7 @@ The component names have changed slightly since last version. That is intentiona
 
 Also, the layout of Cookie Stand Form has changed a bit. This WILL happen all the time as devs. We may as well get used to it now.
 ## Feature Tasks and Requirements
-* All features from versions 1 an 2 should be complete.
+* - [x] All features from versions 1 an 2 should be complete. 
 * The `specs` for lab are screen shots [Cookie Stand Admin Version 3](https://codefellows.github.io/code-401-python-guide/curriculum/class-39/lab/cookie-stand-admin-version-3.png) and [Cookie Stand Admin Login](https://codefellows.github.io/code-401-python-guide/curriculum/class-39/lab/cookie-stand-admin-login.png)
 
 * pages/Index.js should export a `<Home>` component.
@@ -31,6 +31,8 @@ Also, the layout of Cookie Stand Form has changed a bit. This WILL happen all th
 * You will be supplied with an API URL by instructor
   * https://cookie-stand-api.herokuapp.com/admin 
   * https://cookie-stand-api.herokuapp.com/api/v1/cookie-stands/
+  * https://cookie-stand-api.herokuapp.com/api/token/
+  * https://cookie-stand-api.herokuapp.com/api/refresh/
   * You will be supplied a username/password to use API => Username and password: rudy
 * **IMPORTANT** Complete version 1 & 2 tasks before moving on to version 3 features.
 * Pro tip: [Tailwind CSS Extension Pack](https://marketplace.visualstudio.com/items?itemName=andrewmcodes.tailwindcss-extension-pack)
@@ -50,6 +52,36 @@ Refer to [Lab Submission Instructions](https://codefellows.github.io/code-401-py
 * Add edit feature.
 
 
-# STEPS : 
+# STEPS: 
 1. let`s add data file 
    1. add data.js in top level 
+   2. add array 
+   3. export defult 
+   4. import it in files need it , and remove it from props.
+
+2. change `<Header> --> <CookieStandHeader>`
+   1. in Header.js and CookieStandAdmin.js
+3. refering to https://codefellows.github.io/code-401-python-guide/curriculum/class-39/lab/cookie-stand-admin-version-3.png we want to add button for Rudy and Sign Out
+   1.  add it on header.js 
+   2.  add some style 
+4. add form style 
+
+5. pages/Index.js should export a `<Home>` component.
+  * add component Home => add every thing to CookieStandAdmin component. 
+
+6. a. If user is NOT logged in then `<LoginForm>` should render.
+      1. add hook for token 
+      2. add login component after check the token is empty or not 
+   b. If user IS logged in then `<CookieStandAdmin>` component should render.
+
+7. add component file for loginform add fun and return LogIn form 
+   1. add prevent defult => get value username and password and save it , return it.
+
+## get data from api 
+1.  index.jd => add api urls => for data , token , refresh.
+2. make request to get token 
+3. add fun in home to make req to get token (ligindata) by post ()  
+      1. this fun is sync => we want it to wait => we want it to be async => add wait ; sync mean line by line  
+4. set token in hook 
+ 
+ reach 2:00 in viedo lecture 

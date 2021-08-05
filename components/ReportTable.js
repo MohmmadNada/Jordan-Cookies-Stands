@@ -25,7 +25,7 @@ export default function ReportTable(prpos){
                         {/* flixable opening hours */}
                         {openHours.map(oneHour=>{
                             return(
-                                <td className='border-2 border-black'>
+                                <td className='border-2 border-black '>
                                     {oneHour}
                                 </td>
                             );
@@ -40,13 +40,13 @@ export default function ReportTable(prpos){
                 {prpos.locationMarket.map(oneMarket=>{
                             return(
                                 <tr className='border-2 border-black'>
-                                    <td>
+                                    <td >
                                         {oneMarket.locationInput}
                                     </td>
                                     {
                                         oneMarket.hourlyCustomers.map(hourCus=>{
                                             return(
-                                                <td className='border-2 border-black'>
+                                                <td className='font-normal border-2 border-black'>
                                                     {hourCus}
                                                 </td>
                                             );

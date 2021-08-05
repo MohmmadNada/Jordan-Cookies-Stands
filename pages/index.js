@@ -1,21 +1,24 @@
+// import { useState } from 'react'
+import axios from 'axios';
 import { useState } from 'react'
-import CookiesSandAdmin from '../components/CookieStandAdmin'
-import openHours from '../data';
+import CookieStandAdmin from '../components/CookieStandAdmin'
+import LoginForm from '../components/LoginForm';
+// import openHours from '../data';
+const baseURL ='https://cookie-stand-api.herokuapp.com/';
+const tokenURL =baseURL +'api/token' ;
+const refreshURL =baseURL +'api/token/refresh';
+const cookiesStandURL = baseURL+ 'v1/cookie-stands/';
+
+
 export default function Home() {
-    const [locationMarket,setLocationMarket]=useState([])
-    function cookiesFormHandler(event){ 
-        event.preventDefault();
-        const newLocations={ 
-            locationInput : event.target.location.value,
-            minCustomersInput : event.target.minCustomers.value,
-            maxCustomersInput:event.target.maxCustomers.value,
-            avgCustomersInput:event.target.avgCustomers.value,
-            hourlyCustomers:openHours.map(hour=>Math.floor(Math.random() * (event.target.maxCustomers.value - event.target.minCustomers.value) + event.target.minCustomers.value)),
-            id: locationMarket.length +1
-        } ;
-        setLocationMarket([...locationMarket,newLocations])
+    const [token,setToken]=useState('');
+    async function getToken(loginData){
+        const fetchToken = await axios.post(tokenURL,loginData)
+        console.log(fetchToken);
     }
+    getToken
+    if (!token) return(<LoginForm/>)
     return (
-        <CookiesSandAdmin cookiesFormHandler={cookiesFormHandler} locationMarket={locationMarket} />
+        <CookieStandAdmin/>
     )
-    }
+}
