@@ -6,7 +6,7 @@ export default function ReportTable(prpos){
         for (let i=0;i<openHours.length;i++){
             let sumHour=0;
             prpos.locationMarket.map(element=>{
-                sumHour+=element.hourlyCustomers[i]
+                sumHour+=element.hourly_sales[i]
             })
             hourlyTotal[i]=sumHour
         }
@@ -41,10 +41,10 @@ export default function ReportTable(prpos){
                             return(
                                 <tr className='border-2 border-black'>
                                     <td >
-                                        {oneMarket.locationInput}
+                                        {oneMarket.location}
                                     </td>
                                     {
-                                        oneMarket.hourlyCustomers.map(hourCus=>{
+                                        oneMarket.hourly_sales.map(hourCus=>{
                                             return(
                                                 <td className='font-normal border-2 border-black'>
                                                     {hourCus}
@@ -54,7 +54,7 @@ export default function ReportTable(prpos){
                                     }
                                     <td>
                                         {
-                                            oneMarket.hourlyCustomers.reduce((accumulator, currentValue) => accumulator + currentValue)
+                                            oneMarket.hourly_sales.reduce((accumulator, currentValue) => accumulator + currentValue)
                                         }
                                     </td>
                                 </tr>

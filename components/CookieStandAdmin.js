@@ -16,12 +16,12 @@ export default function CookieStandAdmin(props){
     function cookiesFormHandler(event){ 
         event.preventDefault();
         const newLocations={ 
-            locationInput : event.target.location.value,
-            minCustomersInput : event.target.minCustomers.value,
-            maxCustomersInput:event.target.maxCustomers.value,
+            location : event.target.location.value,
+            maximum_customers_per_hour : event.target.minCustomers.value,
+            maximum_customers_per_hour:event.target.maxCustomers.value,
             avgCustomersInput:event.target.avgCustomers.value,
-            hourlyCustomers:openHours.map(hour=>Math.floor(Math.random() * (event.target.maxCustomers.value - event.target.minCustomers.value) + event.target.minCustomers.value)),
-            id: locationMarket.length +1
+            hourly_sales:openHours.map(hour=>Math.floor(Math.random() * (event.target.maxCustomers.value - event.target.minCustomers.value) + event.target.minCustomers.value)),
+            id: locationMarket.length-1
         } ;
         setLocationMarket([...locationMarket,newLocations])
     }

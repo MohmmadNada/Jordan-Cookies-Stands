@@ -14,10 +14,10 @@ export default function Home() {
     const [token,setToken]=useState('')
 
     async function getToken(loginData){//{'username':'rudy','password':'rudy'}
+        /*set access token and refresh to hook token from login data (username and password )*/
         const fetchToken = await axios.post(tokenURL,loginData)
         setToken(fetchToken.data.access)
-        setRefreshToken(fetchToken.data.refresh)
-    }
+        setRefreshToken(fetchToken.data.refresh)}
     function loginHandler(credentials){
         getToken(credentials)
     }

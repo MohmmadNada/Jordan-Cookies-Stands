@@ -29,7 +29,7 @@ Also, the layout of Cookie Stand Form has changed a bit. This WILL happen all th
 ## Implementation Notes
 * Continue work in `cookie-stand-admin` repository
 * You will be supplied with an API URL by instructor
-  * https://cookie-stand-api.herokuapp.com/admin 
+  * https://cookie-stand-api.herokuapp.com/admin
   * https://cookie-stand-api.herokuapp.com/api/v1/cookie-stands/
   * https://cookie-stand-api.herokuapp.com/api/token/
   * https://cookie-stand-api.herokuapp.com/api/refresh/
