@@ -5,20 +5,26 @@ import CookieStandAdmin from '../components/CookieStandAdmin'
 import LoginForm from '../components/LoginForm';
 // import openHours from '../data';
 const baseURL ='https://cookie-stand-api.herokuapp.com/';
-const tokenURL =baseURL +'api/token' ;
-const refreshURL =baseURL +'api/token/refresh';
-const cookiesStandURL = baseURL+ 'v1/cookie-stands/';
-
+const tokenURL =baseURL +'api/token/' ;
+const refreshURL =baseURL +'api/token/refresh/';
+const cookiesStandURL = baseURL+ 'api/v1/cookie-stands/';
 
 export default function Home() {
-    const [token,setToken]=useState('');
-    async function getToken(loginData){
+    const [refreshToken,setRefreshToken]=useState('')
+    const [token,setToken]=useState('')
+
+    async function getToken(loginData){//{'username':'rudy','password':'rudy'}
         const fetchToken = await axios.post(tokenURL,loginData)
-        console.log(fetchToken);
+        setToken(fetchToken.data.access)
+        setRefreshToken(fetchToken.data.refresh)
     }
-    getToken
-    if (!token) return(<LoginForm/>)
+    function loginHandler(credentials){
+        getToken(credentials)
+    }
+
+    // console.log(token);
+    if (!token) return(<LoginForm loginHandler={loginHandler}/>)
     return (
-        <CookieStandAdmin/>
+        <CookieStandAdmin token={token}/>
     )
 }

@@ -10,10 +10,20 @@ const refreshURL =baseURL +'/api/token/refresh/';
 const cookiesStandURL = baseURL+ '/v1/cookie-stands/';
 
 export default function LoginForm(props){
-    const [username,setUsername]=useState('')
-    const [password,setPassword]=useState('')
-    const [refresh,setRefresh]=useState('')
-    const [token,setToken]=useState('')
+    // const [username,setUsername]=useState('')
+    // const [password,setPassword]=useState('')
+    // const [refreshToken,setRefreshToken]=useState('')
+    // const [token,setToken]=useState('')
+    // async function getToken(loginData){//{'username':'rudy','password':'rudy'}
+    //     const fetchToken = await axios.post(tokenURL,loginData)
+    //     // ["refresh", "access"] 
+    //     // console.log(Object.values(fetchToken.data));
+    //     // setRefresh(ObjectToken.values(fetchToken.data)[0])
+    //     // setToken(Object.values(fetchToken.data)[1])
+    //     // console.log(fetchToken.data.access);// {refresh: "", access: ""}
+    //     setToken(fetchToken.data.access)
+    //     setRefreshToken(fetchToken.data.refresh)
+    // }
     function submitHandler(event){
         event.preventDefault();
         let infoLogIn={
@@ -23,20 +33,10 @@ export default function LoginForm(props){
         // setUsername(event.target.username.value);
         // setPassword(event.target.password.value); // use onchange to void daily in save in hook 
         // console.log(username,password);
-
-        return(
-            // loginHandler(infoLogIn)
-            getToken(infoLogIn)
-            )
-    }
-    async function getToken(loginData){
-        const fetchToken = await axios.post(tokenURL,loginData)
-        // ["refresh", "access"] 
-        // console.log(Object.values(fetchToken.data));
-        setRefresh(Object.values(fetchToken.data)[0])
-        setToken(Object.values(fetchToken.data)[1])
-        console.log(token);
-        console.log(refresh);
+        // console.log(Object.values(infoLogIn));
+        // console.log('infoLogIn = > ',infoLogIn);
+        props.loginHandler(infoLogIn)
+        // return(getToken(infoLogIn))
     }
 
     return(

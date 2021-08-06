@@ -82,6 +82,11 @@ Refer to [Lab Submission Instructions](https://codefellows.github.io/code-401-py
 2. make request to get token 
 3. add fun in home to make req to get token (ligindata) by post ()  
       1. this fun is sync => we want it to wait => we want it to be async => add wait ; sync mean line by line  
-4. set token in hook 
- 
- reach 2:00 in viedo lecture 
+4. set token in hook in index and get it -> check the condition 
+5. now Need to get array of data  
+   1. make Req to Url using Access Token 
+      1. add Token as props to cookies stands component 
+      2. Open Cookies stands Component and add url whice had data
+      3. add function to get data  => async => with config Bearer => set it in hook
+6. use effect => no one can use the state before it is done => inside effect will run first 
+7. Next step => foramt data to be like what we build in datajs by map => Done 
