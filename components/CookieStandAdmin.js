@@ -16,12 +16,12 @@ export default function CookieStandAdmin(props){
     function cookiesFormHandler(event){ 
         event.preventDefault();
         const newLocations={ 
+            id: locationMarket.length,//average_cookies_per_sale // minimum_customers_per_hour
             location : event.target.location.value,
-            maximum_customers_per_hour : event.target.minCustomers.value,
+            minimum_customers_per_hour : event.target.minCustomers.value,
             maximum_customers_per_hour:event.target.maxCustomers.value,
-            avgCustomersInput:event.target.avgCustomers.value,
+            average_cookies_per_sale:event.target.avgCustomers.value,
             hourly_sales:openHours.map(hour=>Math.floor(Math.random() * (event.target.maxCustomers.value - event.target.minCustomers.value) + event.target.minCustomers.value)),
-            id: locationMarket.length-1
         } ;
         setLocationMarket([...locationMarket,newLocations])
     }
@@ -29,6 +29,7 @@ export default function CookieStandAdmin(props){
         if (props.token){
             getDataFromAPI();
             console.log('cookiesDastaHook =>',cookiesDataHook);
+            // console.log(' =>',locationMarket)
         }
     },[props.token])
     async function getDataFromAPI(){
@@ -46,19 +47,20 @@ export default function CookieStandAdmin(props){
             minimum_customers_per_hour: 3
             owner: null
         */
-        setCookiesDataHook(cookiesData.data)
+        setCookiesDataHook(cookiesData.data);
         // console.log(cookiesDataHook);
     }
-return(
+return(// [pre data : locationMarket ]
     <div className = "font-semibold ">
         <Head2/>
         <body className="">
             <CookieStandHeader herfOverview={'/'}/>
             <main className = "grid flex-grow h-screen p-10 bg-gray-500 justify-items-center">
-                <CreateForm cookiesFormHandler={cookiesFormHandler} />
-                <ReportTable locationMarket={locationMarket} />
+                <CreateForm cookiesFormHandler={cookiesFormHandler} /> 
+                {/* <ReportTable locationMarket={locationMarket}  />  */}
+                <ReportTable cookiesDataHook={cookiesDataHook}  /> 
             </main>
-            <Footer totalMarkets={locationMarket.length}/>
+            <Footer totalMarkets={cookiesDataHook.length}/>
         </body>
     </div>
     )

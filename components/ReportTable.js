@@ -5,7 +5,7 @@ export default function ReportTable(prpos){
         let hourlyTotal=[]
         for (let i=0;i<openHours.length;i++){
             let sumHour=0;
-            prpos.locationMarket.map(element=>{
+            prpos.cookiesDataHook.map(element=>{
                 sumHour+=element.hourly_sales[i]
             })
             hourlyTotal[i]=sumHour
@@ -37,7 +37,7 @@ export default function ReportTable(prpos){
                     </tr>
                 </thead>
                 <tbody>
-                {prpos.locationMarket.map(oneMarket=>{
+                {prpos.cookiesDataHook.map(oneMarket=>{
                             return(
                                 <tr className='border-2 border-black'>
                                     <td >
@@ -84,7 +84,7 @@ export default function ReportTable(prpos){
         );
     }
     function resultTable(){
-        if (prpos.locationMarket.length == 0 ){
+        if (prpos.cookiesDataHook.length == 0 ){
             return(
                 <p>No Cookies Stands Available</p>
             );
