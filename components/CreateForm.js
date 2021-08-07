@@ -1,6 +1,6 @@
-export default function CreateForm(props){
+export default function CreateForm(props){ // prpos.locationMarket
     return(
-        <form className='grid flex-grow w-4/5 grid-flow-col grid-cols-6 grid-rows-6 gap-4 p-3 bg-blue-300 rounded-lg h-3/5' onSubmit={props.cookiesFormHandler}>
+        <form className='grid flex-grow grid-flow-col grid-cols-6 col-span-6 grid-rows-6 gap-4 p-3 m-6 bg-blue-300 rounded-lg' onSubmit={props.cookiesFormHandler}>
             <label className='col-span-4 col-start-1 text-xl text-center '>
                 Add location
             </label>

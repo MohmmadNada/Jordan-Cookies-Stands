@@ -7,7 +7,7 @@ import axios from 'axios';
 const baseURL ='https://cookie-stand-api.herokuapp.com';
 const tokenURL =baseURL +'/api/token/' ;
 const refreshURL =baseURL +'/api/token/refresh/';
-const cookiesStandURL = baseURL+ '/v1/cookie-stands/';
+
 
 export default function LoginForm(props){
     // const [username,setUsername]=useState('')

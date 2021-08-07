@@ -16,49 +16,45 @@ export default function CookieStandAdmin(props){
     function cookiesFormHandler(event){ 
         event.preventDefault();
         const newLocations={ 
-            id: locationMarket.length,//average_cookies_per_sale // minimum_customers_per_hour
-            location : event.target.location.value,
-            minimum_customers_per_hour : event.target.minCustomers.value,
-            maximum_customers_per_hour:event.target.maxCustomers.value,
-            average_cookies_per_sale:event.target.avgCustomers.value,
-            hourly_sales:openHours.map(hour=>Math.floor(Math.random() * (event.target.maxCustomers.value - event.target.minCustomers.value) + event.target.minCustomers.value)),
+             
         } ;
         setLocationMarket([...locationMarket,newLocations])
+        locationMarket.length!=0 ? console.log(locationMarket[locationMarket.length-1]): console.log('Empty');
+        let newBranch={
+        id: locationMarket.length,//average_cookies_per_sale // minimum_customers_per_hour
+        location : event.target.location.value,
+        minimum_customers_per_hour : event.target.minCustomers.value,
+        maximum_customers_per_hour:event.target.maxCustomers.value,
+        average_cookies_per_sale:event.target.avgCustomers.value,
+        hourly_sales:openHours.map(hour=>Math.floor(Math.random() * (event.target.maxCustomers.value - event.target.minCustomers.value) + event.target.minCustomers.value))       
+        }
+        console.log(locationMarket);
+        // return(newBranch,console.log(newBranch))
+     
     }
     useEffect(()=>{
         if (props.token){
             getDataFromAPI();
-            console.log('cookiesDastaHook =>',cookiesDataHook);
-            // console.log(' =>',locationMarket)
         }
     },[props.token])
     async function getDataFromAPI(){
         const config = {headers: {'Authorization': 'Bearer  '+props.token }}  
         const cookiesData = await axios.get(cookiesStandURL,config);
-        // console.log('cookiesData =>    ',cookiesData.data); // array with objects 
-        //0: {id: 194, location: "Worcester", description: "", hourly_sales: Array(14), minimum_customers_per_hour: 3, …}
-
-        /* average_cookies_per_sale: 3
-            description: ""
-            hourly_sales: (14) [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
-            id: 194
-            location: "Worcester"
-            maximum_customers_per_hour: 3
-            minimum_customers_per_hour: 3
-            owner: null
-        */
-        setCookiesDataHook(cookiesData.data);
-        // console.log(cookiesDataHook);
+        setCookiesDataHook(cookiesData.data)
     }
-return(// [pre data : locationMarket ]
+    async function postDataAPI(){
+     const config = {headers: {'Authorization': 'Bearer  '+props.token }};
+     const cookiesData = await axios.post('https://cookie-stand-api.herokuapp.com/api/v1/cookie-stands',locationMarket,config);
+    }
+return(
     <div className = "font-semibold ">
         <Head2/>
-        <body className="">
+        <body className=""> 
             <CookieStandHeader herfOverview={'/'}/>
-            <main className = "grid flex-grow h-screen p-10 bg-gray-500 justify-items-center">
-                <CreateForm cookiesFormHandler={cookiesFormHandler} /> 
-                {/* <ReportTable locationMarket={locationMarket}  />  */}
-                <ReportTable cookiesDataHook={cookiesDataHook}  /> 
+            <main className = "grid p-10">
+          
+                <CreateForm cookiesFormHandler={cookiesFormHandler}  /> 
+                <ReportTable cookiesDataHook={cookiesDataHook} postDataAPI={postDataAPI}/> 
             </main>
             <Footer totalMarkets={cookiesDataHook.length}/>
         </body>
