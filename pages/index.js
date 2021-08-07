@@ -1,21 +1,30 @@
+// import { useState } from 'react'
+import axios from 'axios';
 import { useState } from 'react'
-import CookiesSandAdmin from '../components/CookieStandAdmin'
+import CookieStandAdmin from '../components/CookieStandAdmin'
+import LoginForm from '../components/LoginForm';
+// import openHours from '../data';
+const baseURL ='https://cookie-stand-api.herokuapp.com/';
+const tokenURL =baseURL +'api/token/' ;
+const refreshURL =baseURL +'api/token/refresh/';
+const cookiesStandURL = baseURL+ 'api/v1/cookie-stands/';
+
 export default function Home() {
-    const [locationMarket,setLocationMarket]=useState([])
-    const [openHours,setOpenHours]=useState(['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'])
-    function cookiesFormHandler(event){ 
-        event.preventDefault();
-        const newLocations={ 
-            locationInput : event.target.location.value,
-            minCustomersInput : event.target.minCustomers.value,
-            maxCustomersInput:event.target.maxCustomers.value,
-            avgCustomersInput:event.target.avgCustomers.value,
-            hourlyCustomers:openHours.map(hour=>Math.floor(Math.random() * (event.target.maxCustomers.value - event.target.minCustomers.value) + event.target.minCustomers.value)),
-            id: locationMarket.length +1
-        } ;
-        setLocationMarket([...locationMarket,newLocations])
+    const [refreshToken,setRefreshToken]=useState('')
+    const [token,setToken]=useState('')
+
+    async function getToken(loginData){//{'username':'rudy','password':'rudy'}
+        /*set access token and refresh to hook token from login data (username and password )*/
+        const fetchToken = await axios.post(tokenURL,loginData)
+        setToken(fetchToken.data.access)
+        setRefreshToken(fetchToken.data.refresh)}
+    function loginHandler(credentials){
+        getToken(credentials)
     }
+
+    // console.log(token);
+    if (!token) return(<LoginForm loginHandler={loginHandler}/>)
     return (
-        <CookiesSandAdmin cookiesFormHandler={cookiesFormHandler} locationMarket={locationMarket} openHours={openHours}/>
+        <CookieStandAdmin token={token}/>
     )
-    }
+}
