@@ -16,21 +16,31 @@ export default function CookieStandAdmin(props){
     function cookiesFormHandler(event){ 
         event.preventDefault();
         const newLocations={ 
-             
+            id: locationMarket.length,//average_cookies_per_sale // minimum_customers_per_hour
+            location : event.target.location.value,
+            minimum_customers_per_hour : event.target.minCustomers.value,
+            maximum_customers_per_hour:event.target.maxCustomers.value,
+            average_cookies_per_sale:event.target.avgCustomers.value,
+            hourly_sales:openHours.map(hour=>Math.floor(Math.random() * (event.target.maxCustomers.value - event.target.minCustomers.value) + event.target.minCustomers.value))
         } ;
         setLocationMarket([...locationMarket,newLocations])
-        locationMarket.length!=0 ? console.log(locationMarket[locationMarket.length-1]): console.log('Empty');
         let newBranch={
-        id: locationMarket.length,//average_cookies_per_sale // minimum_customers_per_hour
-        location : event.target.location.value,
-        minimum_customers_per_hour : event.target.minCustomers.value,
-        maximum_customers_per_hour:event.target.maxCustomers.value,
-        average_cookies_per_sale:event.target.avgCustomers.value,
-        hourly_sales:openHours.map(hour=>Math.floor(Math.random() * (event.target.maxCustomers.value - event.target.minCustomers.value) + event.target.minCustomers.value))       
+ 
+        // id: locationMarket.length,
+        location: event.target.location.value,
+        description: "",
+        hourly_sales: openHours.map(hour=>Math.floor(Math.random() * (event.target.maxCustomers.value - event.target.minCustomers.value) + event.target.minCustomers.value)),
+        minimum_customers_per_hour:event.target.minCustomers.value,
+        maximum_customers_per_hour: event.target.maxCustomers.value,
+        average_cookies_per_sale: event.target.avgCustomers.value,
+        owner: 1    
         }
-        console.log(locationMarket);
-        // return(newBranch,console.log(newBranch))
-     
+        async function postDataAPI(newBranch){
+            const config = {headers: {'Authorization': 'Bearer  '+props.token }};
+            const cookiesData = await axios.post('https://cookie-stand-api.herokuapp.com/api/v1/cookie-stands/',newBranch,config);
+           };
+           postDataAPI(newBranch);
+        
     }
     useEffect(()=>{
         if (props.token){
@@ -42,10 +52,14 @@ export default function CookieStandAdmin(props){
         const cookiesData = await axios.get(cookiesStandURL,config);
         setCookiesDataHook(cookiesData.data)
     }
-    async function postDataAPI(){
-     const config = {headers: {'Authorization': 'Bearer  '+props.token }};
-     const cookiesData = await axios.post('https://cookie-stand-api.herokuapp.com/api/v1/cookie-stands',locationMarket,config);
+    function deleteFromAPI(event){//246
+        event.preventDefault();
+        let idItem = event.target.deleteItem.value;
+        let deleteURL=cookiesStandURL+idItem+'/'
+        const config = {headers: {'Authorization': 'Bearer  '+props.token }}  
+        axios.delete(deleteURL,config);
     }
+    
 return(
     <div className = "font-semibold ">
         <Head2/>
@@ -54,7 +68,7 @@ return(
             <main className = "grid p-10">
           
                 <CreateForm cookiesFormHandler={cookiesFormHandler}  /> 
-                <ReportTable cookiesDataHook={cookiesDataHook} postDataAPI={postDataAPI}/> 
+                <ReportTable cookiesDataHook={cookiesDataHook} deleteFromAPI={deleteFromAPI}/> 
             </main>
             <Footer totalMarkets={cookiesDataHook.length}/>
         </body>

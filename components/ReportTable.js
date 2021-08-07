@@ -1,6 +1,5 @@
 import openHours from "../data";
 export default function ReportTable(props){
-    props.postDataAPI();
     function hourlyTotalCal(){
         let totalAllHours=0;
         let hourlyTotal=[]
@@ -20,7 +19,7 @@ export default function ReportTable(props){
             <table className='col-span-2 col-start-3 m-2 bg-blue-300 rounded-lg'>	
                 <thead>
                     <tr className='border-2 border-black'>
-                        <td className='border-2 border-black'>
+                        <td className='border-2 border-black '>
                             Location
                         </td>
                         {/* flixable opening hours */}
@@ -41,8 +40,15 @@ export default function ReportTable(props){
                 {props.cookiesDataHook.map(oneMarket=>{
                     return(
                         <tr className='border-2 border-black'>
-                                    <td >
+                                    <td className='flex justify-between '>
                                         {oneMarket.location}
+                                        <form onSubmit={props.deleteFromAPI}>
+                                        <input type="hidden" name="deleteItem" value={oneMarket.id} />
+                                        <button  className= 'mr-1 rounded-md place-items-center'>
+                                        <i class="fa fa-trash"></i>
+                                        </button>
+
+                                        </form>
                                     </td>
                                     {
                                         oneMarket.hourly_sales.map(hourCus=>{
